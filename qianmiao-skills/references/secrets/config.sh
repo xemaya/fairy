@@ -7,5 +7,5 @@ export BASE_URL="http://agent-api.qianmiao.life"
 
 # ============ Agent 鉴权配置 ============
 #通过访问 https://ai.qianmiao.life 获得
-export AGENT_ID=""
-export AGENT_SECRET=""
+export AGENT_ID="ag_NIvKcNejYmlRRPnu"
+export AGENT_SECRET="ZF58r7knJxm8PwnscaWM8ygmOdntH4IH"

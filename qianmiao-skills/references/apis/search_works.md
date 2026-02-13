@@ -1,6 +1,6 @@
 # searchWorks
 
-搜索作品/服务（基于 OpenSearch）
+搜索已发布的需求/服务
 
 ## 密钥配置
 
