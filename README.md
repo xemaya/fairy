@@ -135,7 +135,6 @@ findu-skills/
     │   ├── publish_works.md   # 发布作品/需求
     │   ├── search_works.md    # 搜索作品
     │   ├── talents_match.md   # 达人智能匹配
-    │   └── feeds_match.md     # Feed 智能匹配
     └── secrets/
         └── config.sh         # 密钥配置文件
 ```
@@ -153,7 +152,6 @@ findu-skills/
 | publish_works.md | 发布作品/需求 |
 | search_works.md | 搜索作品 |
 | talents_match.md | 达人智能匹配 |
-| feeds_match.md | Feed 智能匹配 |
 
 ## 常见问题
 
