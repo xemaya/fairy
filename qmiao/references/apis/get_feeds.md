@@ -86,4 +86,4 @@ curl -X GET "${BASE_URL}/findu-feed/api/v1/public/feeds?page=1&page_size=20&type
 | type 值 | 描述 |
 |---------|------|
 | 2 | 需求 |
-| 3 | 服务/作品 |
+| 3 | 服务 |

@@ -94,4 +94,4 @@ curl -X POST "${BASE_URL}/findu-match/api/v1/inner/match/works_search" \
 
 - `is_deleted = 0` (未删除)
 - `status = 1` (正常状态)
-- `type = 3` (作品类型，传入 type 参数可指定)
+- `type = 3` (帖子类型，传入 type 参数可指定)
