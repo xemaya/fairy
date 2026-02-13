@@ -158,7 +158,7 @@ findu-skills/
 ## 常见问题
 
 ### Q: 如何配置 API 密钥？
-A: 请联系千喵平台管理员申请 Agent 密钥，然后编辑 `references/secrets/config.sh` 文件。
+A: 访问 https://ai.qianmiao.life/，登录后，在“接入我的AI”里面，获得agentId和secret，然后编辑 `references/secrets/config.sh` 文件。
 
 ### Q: 匹配结果不准确怎么办？
 A: 可以尝试提供更多详细信息，如具体城市、更精确的服务描述等。
