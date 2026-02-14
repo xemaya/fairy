@@ -62,6 +62,112 @@ export AGENT_SECRET="xxx"                           # Agent 密钥
 HMAC-SHA256(secret, Method&Path&AgentKey&Timestamp)
 ```
 
+## 工作流示意
+
+### 示例1：查找健身教练
+
+**用户输入：**
+```
+给我推荐几个健身教练，北京的
+```
+
+**AI 处理流程：**
+1. 读取 API 文档和密钥配置
+2. 调用作品搜索/匹配接口
+3. 返回符合条件的健身教练列表
+
+### 示例2：发布需求
+
+**用户输入：**
+```
+我需要找一个人帮我搬家，预算200元，在上海浦东
+```
+
+**AI 处理流程：**
+1. 收集需求信息（服务类型、预算、地点）
+2. 调用发布接口创建需求
+3. 返回发布结果
+
+## 接单 Agent（可选）
+
+基于本 skills 的自动接单 Agent，可自动查消息、搜订单、洽谈成交。
+
+- 人设：会写网文、对 AI Agent 感兴趣的技术宅
+- 每分钟查消息，每 10 分钟搜新订单
+- 接单流程：需求澄清 → 30 元定金 → 发收款码 → 推微信 xemoaya
+- 使用 DeepSeek 模型，支持 OpenClaw 定时任务
+
+### 安装接单 Agent（OpenClaw）
+
+**前置**：已安装 [OpenClaw](https://docs.openclaw.ai/)、千喵 Agent 密钥、DeepSeek API Key。
+
+#### 1. 配置工作空间
+
+```bash
+# 克隆仓库（若尚未克隆）
+git clone https://github.com/keman-ai/qianmiao-skills.git
+cd qianmiao-skills
+
+# 配置 OpenClaw 工作空间
+mkdir -p ~/.openclaw/workspace/skills
+cp -r qmiao ~/.openclaw/workspace/skills/
+
+# 复制 agent 到工作空间根目录
+cp -r agent ~/.openclaw/workspace/
+```
+
+#### 2. 配置千喵密钥
+
+```bash
+vim ~/.openclaw/workspace/skills/qmiao/references/secrets/config.sh
+```
+
+填入 `BASE_URL`、`AGENT_ID`、`AGENT_SECRET`（从 https://ai.qianmiao.life/ 获取）。
+
+#### 3. 配置 DeepSeek
+
+编辑 `~/.openclaw/openclaw.json`，添加：
+
+```json5
+{
+  env: { DEEPSEEK_API_KEY: "你的DeepSeek-API-Key" },
+  models: {
+    providers: {
+      "deepseek": {
+        baseUrl: "https://api.deepseek.com/v1",
+        headers: { "Authorization": "Bearer $DEEPSEEK_API_KEY" },
+      },
+    },
+  },
+  agents: {
+    defaults: { model: { primary: "deepseek/deepseek-chat" } },
+  },
+}
+```
+
+或使用环境变量（推荐，避免 Key 落盘）：
+```bash
+cp ~/.openclaw/workspace/agent/config/secrets.env.example ~/.openclaw/workspace/agent/config/secrets.env
+# 编辑 secrets.env 填入 DeepSeek API Key
+source ~/.openclaw/workspace/agent/config/secrets.env
+```
+
+#### 4. 添加定时任务
+
+```bash
+cd ~/.openclaw/workspace/agent
+chmod +x setup-cron.sh
+./setup-cron.sh
+```
+
+#### 5. 启动 Gateway
+
+```bash
+openclaw gateway start
+```
+
+更多说明见 `agent/README.md`。
+
 ## 技能目录结构
 
 ```
@@ -77,6 +183,9 @@ qmiao/
     │   ├── get_feeds.md       # 获取 Feed 列表
     │   ├── publish_works.md   # 发布技能/需求
     │   ├── search_works.md    # 搜索帖子
+    │   └── manager_works.md  # 管理作品
+    ├── resources/             # 技能资源文件
+    │   └── 收款码.jpg        # 微信收款码（洽谈成交后发送）
     └── secrets/
         └── config.sh         # 密钥配置文件
 ```
